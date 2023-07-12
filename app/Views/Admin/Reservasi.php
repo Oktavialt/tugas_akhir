@@ -26,8 +26,8 @@
                                                 <th>Nomor Telepon</th>
                                                 <th>Alamat</th>
                                                 <th>Treatment</th>
-                                                <th>Total Pembayaran</th>
-                                                <th>Status Pembayaran</th>
+                                                <th>Total Tagihan</th>
+                                                <th>Status Reservasi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ModelAdmin;
 use App\Models\ModelUser;
+use App\Models\UserModel;
+
 
 class Login extends BaseController
 {
@@ -45,22 +47,34 @@ class Login extends BaseController
                         session()->setFlashdata('pesan', 'Maaf, Username atau Password Salah.');
                         return redirect()->to(base_url('layout/login'));
                     } else {
-                        $data = [
-                            'user_id' => $user['user_id'],
-                            'nama_lengkap'    => $user['nama_lengkap'],
-                            'password' => $user['password'],
-                            'username' => $user['username'],
-                            'nomor telepon' => $user['nomor_telepon'],
-                            'alamat' => $user['alamat'],
-                            'level_user' => $user['level_user'],
-                            'logged_in' => TRUE,
-                        ];
-                        session()->set($data);
-                        session()->set('pesan', 'Selamat Datang, ' . ucfirst($user['username']));
-                        session()->set('nama_lengkap', ucfirst($user['nama_lengkap']));
-                        session()->set('alamat', ucfirst($user['alamat']));
-                        session()->set('nomor_telepon', ucfirst($user['nomor_telepon']));
-                        return redirect()->to(base_url(''));
+                        if ($user['aktif'] == 0) {
+                            # code...
+                            session()->setFlashdata('pesan', 'Maaf, nomor telepon anda belum TERVERIFIKASI.');
+                            return redirect()->to(base_url('layout/login'));
+                        } else {
+
+                            $data = [
+                                'user_id' => $user['user_id'],
+                                'nama_lengkap'    => $user['nama_lengkap'],
+                                'password' => $user['password'],
+                                'username' => $user['username'],
+                                'nomor telepon' => $user['nomor_telepon'],
+                                'alamat' => $user['alamat'],
+                                'level_user' => $user['level_user'],
+                                'logged_in' => TRUE,
+                            ];
+                            session()->set($data);
+                            session()->set('pesan', 'Selamat Datang, ' . ucfirst($user['username']));
+                            session()->set('nama_lengkap', ucfirst($user['nama_lengkap']));
+                            session()->set('alamat', ucfirst($user['alamat']));
+                            session()->set('nomor_telepon', ucfirst($user['nomor_telepon']));
+
+                            $redirect = base_url('');
+                            if ($user['level_user'] == 'Admin') {
+                                $redirect = base_url('Admin/Home');
+                            }
+                            return redirect()->to($redirect);
+                        }
                     }
                 }
             } else if ($Admin) {
@@ -103,5 +117,29 @@ class Login extends BaseController
     {
         session()->destroy();
         return redirect()->to(base_url());
+    }
+
+    public function tampilOTP()
+    {
+        $data = [
+            'title' => 'Login',
+            'pages' => 'login',
+        ];
+
+        return view('layout/otp', $data);
+    }
+
+    Public function lupaPW()
+    {
+        $data = [
+            'title' => 'Login',
+            'pages' => 'login',
+        ];
+
+        return view('layout/lupaPW', $data);
+    }
+
+    public function otp()
+    {
     }
 }

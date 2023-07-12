@@ -5,7 +5,7 @@
 <div class="container-fluid" id="container-wrapper">
   <div class="d-sm-flex align-items-center justify-content-between mb-0 mt-3">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/user">Kembali</a></li>
+      <li class="breadcrumb-item"><a href="/Admin/User">Kembali</a></li>
       <li class="breadcrumb-item active" aria-current="page">Tambah Data User</li>
     </ol>
   </div>
@@ -18,23 +18,23 @@
         <form>
           <div class="form-group">
             <label for="nama_lengkap">Nama Lengkap</label>
-            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" placeholder="nama_lengkap" autofocus required>
+            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" placeholder="Masukkan Nama Lengkap Anda" autofocus required>
           </div>
           <div class="form-group">
             <label for="username">username</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="username" autofocus required>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Masukkan Username Anda" autofocus required>
           </div>
           <div class="form-group">
-            <label for="nomor_telepon">Password</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="password" autofocus required>
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password Anda" minlength="8" autofocus requiredoninvalid="this.setCustomValidity('Password Minimal 8 Karakter')" oninput="this.setCustomValidity('Password Minimal 8 Karakter')" onchange="this.setCustomValidity('')">
           </div>
           <div class="form-group">
             <label for="alamat">Alamat</label>
-            <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Alamat" autofocus required>
+            <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukkan Alamat Anda" autofocus required>
           </div>
           <div class="form-group">
             <label for="nomor_telepon">No. Telepon</label>
-            <input type="text" class="form-control" name="nomor_telepon" id="nomor_telepon" placeholder="nomor_telepon" autofocus required>
+            <input type="text" class="form-control" name="nomor_telepon" id="nomor_telepon" placeholder="Masukkan Nomor Telepon Anda" autofocus required>
           </div>
           <div class="form-group">
             <label for="level_user">Level User</label>
@@ -46,6 +46,7 @@
             </div>
           </div>
 
+          <a href="<?= base_url('Admin/User') ?>" class="btn btn-danger">Cancel</a>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>

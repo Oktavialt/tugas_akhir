@@ -37,7 +37,7 @@ class User extends Controller
                 'nama_lengkap' => $this->request->getVar('nama_lengkap'),
                 'username' => $this->request->getVar('username'),
                 'alamat' => $this->request->getVar('alamat'),
-                'no_telepon' => $this->request->getVar('no_telepon'),
+                'nomor_telepon' => $this->request->getVar('nomor_telepon'),
                 'leveluser' => $this->request->getVar('leveluser')
             ];
             $model->save($data);
@@ -74,7 +74,7 @@ class User extends Controller
                 'nama_lengkap' => $this->request->getVar('nama_lengkap'),
                 'username' => $this->request->getVar('username'),
                 'alamat' => $this->request->getVar('alamat'),
-                'no_telepon' => $this->request->getVar('no_telepon'),
+                'nomor_telepon' => $this->request->getVar('nomor_telepon'),
                 'leveluser' => $this->request->getVar('leveluser')
             ];
             $model->update($id, $data);

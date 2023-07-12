@@ -77,6 +77,12 @@
               <!-- Submit button -->
               <button class="btn btn-primary w-100 mt-2" tabindex="4">LOGIN</button>
 
+              <!-- ubah password -->
+              
+              <!-- <div class="text-center">
+                <p>Lupa Password? <a href="/layout/lupaPW">Ubah Password</a></p>
+              </div> -->
+
               <!-- Register buttons -->
               <div class="text-center">
                 <p>Belum punya Akun? <a href="/layout/register">Register</a></p>

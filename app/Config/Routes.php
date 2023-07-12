@@ -32,8 +32,12 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index');
 $routes->get('/logout', 'Login::logout');
 $routes->get('/reservasi', 'Login::reservasi');
+$routes->get('/home/user/profile', 'Home::profile');
+$routes->post('/home/user/profile/simpan/(:num)', 'UserController::updateProfile/$1');
 $routes->get('/home/klinik', 'Home::klinik');
-$routes->get('/home/treatment', 'Home::treatment');
+$routes->get('/home/Treatment/(:any)', 'Home::Treatment/$1');
+$routes->get('/home/Detail/(:any)', 'Home::Detail/$1');
+$routes->get('/home/Reservasi/(:any)', 'Home::Reservasi/$1');
 $routes->get('/home/BeforeAfter', 'Home::BeforeAfter');
 $routes->get('/home/Riwayat', 'Home::Riwayat');
 $routes->get('/layout/login', 'Home::login');
@@ -45,86 +49,60 @@ $routes->post('/Register/process', 'Register::process');
 $routes->get('/Admin/Home', 'Home::Home');
 $routes->get('/Admin/Sidebar', 'Home::Sidebar');
 $routes->get('/Admin/Dasboard', 'Home::Dasboard');
-$routes->get('/Treatment/Facial', 'Home::Facial');
-$routes->get('/Treatment/Chemical', 'Home::Chemical');
-$routes->get('/Treatment/Laser', 'Home::Laser');
-$routes->get('/Treatment/Glowing', 'Home::Glowing');
-$routes->get('/Treatment/Badan', 'Home::Badan');
-$routes->get('/Treatment/Rambut', 'Home::Rambut');
-$routes->get('/Treatment/Lainnya', 'Home::Lainnya');
-$routes->get('/Detail/ChemicalPeeling', 'Home::ChemicalPeeling');
-$routes->get('/Detail/DChemicalPeeling', 'Home::DChemicalPeeling');
-$routes->get('/Detail/CPKetiak', 'Home::CPKetiak');
-$routes->get('/Detail/CPBibir', 'Home::CPBibir');
-$routes->get('/Detail/CPLeher', 'Home::CPLeher');
-$routes->get('/Detail/FacialBasic', 'Home::FacialBasic');
-$routes->get('/Detail/FacialAntiAcne', 'Home::FacialAntiAcne');
-$routes->get('/Detail/FacialGold', 'Home::FacialGold');
-$routes->get('/Detail/FacialOksigen', 'Home::FacialOksigen');
-$routes->get('/Detail/FacialDetox', 'Home::FacialDetox');
-$routes->get('/Detail/FacialReguler', 'Home::FacialReguler');
-$routes->get('/Detail/FacialIntensif', 'Home::FacialIntensif');
-$routes->get('/Detail/FacialSkin', 'Home::FacialSkin');
-$routes->get('/Detail/FacialScrubber', 'Home::FacialScrubber');
-$routes->get('/Detail/FacialIceGlobe', 'Home::FacialIceGlobe');
-$routes->get('/Detail/LaserBibir', 'Home::LaserBibir');
-$routes->get('/Detail/LaserBDKetiak', 'Home::LaserBDKetiak');
-$routes->get('/Detail/LaserWajah', 'Home::LaserWajah');
-$routes->get('/Detail/GlowingKulitWajah', 'Home::GlowingKulitWajah');
-$routes->get('/Detail/GlowingKulitKetiak', 'Home::GlowingKulitKetiak');
-$routes->get('/Detail/GlowingKulitLeher', 'Home::GlowingKulitLeher');
-$routes->get('/Detail/GlowingKulitBibir', 'Home::GlowingKulitBibir');
-$routes->get('/Detail/PaketInjeksiVitC', 'Home::PaketInjeksiVitC');
-$routes->get('/Detail/PaketInjeksiWhitening', 'Home::PaketInjeksiWhitening');
-$routes->get('/Detail/InjeksiWhitening', 'Home::InjeksiWhitening');
-$routes->get('/Detail/InjeksiVitC', 'Home::InjeksiVitC');
-$routes->get('/Detail/HairSPA', 'Home::HairSPA');
-$routes->get('/Detail/HairMask', 'Home::HairMask');
-$routes->get('/Detail/HairCreambath', 'Home::HairCreambath');
-$routes->get('/Detail/CuciVitRambut', 'Home::CuciVitRambut');
-$routes->get('/Reservasi/RFacialBasic', 'Home::RFacialBasic');
-$routes->get('/Reservasi/RFacialAcne', 'Home::RFacialAcne');
-$routes->get('/Reservasi/RFacialDetox', 'Home::RFacialDetox');
-$routes->get('/Reservasi/RFacialGold', 'Home::RFacialGold');
-$routes->get('/Reservasi/RFacialReguler', 'Home::RFacialReguler');
-$routes->get('/Reservasi/RFacialOksigen', 'Home::RFacialOksigen');
-$routes->get('/Reservasi/RFacialIntensif', 'Home::RFacialIntensif');
-$routes->get('/Reservasi/RFacialIceGlobe', 'Home::RFacialIceGlobe');
-$routes->get('/Reservasi/RFacialSkin', 'Home::RFacialSkin');
-$routes->get('/Reservasi/RFacialScrubber', 'Home::RFacialScrubber');
-$routes->get('/Reservasi/RChemicalPeeling', 'Home::RChemicalPeeling');
-$routes->get('/Reservasi/RDChemicalPeeling', 'Home::RDChemicalPeeling');
-$routes->get('/Reservasi/RCPBibir', 'Home::RCPBibir');
-$routes->get('/Reservasi/RCPKetiak', 'Home::RCPKetiak');
-$routes->get('/Reservasi/RCPLeher', 'Home::RCPLeher');
+$routes->post('/Reservasi/cek-sesi', 'Home::cekSesi');
+$routes->post('/Reservasi/simpan', 'Home::simpan');
 // $routes->get('/Admin/DataUser', 'DataUser::index');
 $routes->get('Admin/DAdmin', 'Home::DAdmin');
 $routes->get('/Admin/Home', 'Home::Home');
 $routes->get('/Admin/Laporan', 'Home::Laporan');
 $routes->add('daterangepicker/(:any)', 'Home::library/$1');
+
 // CRUD USER
 $routes->get('/user/edit', 'Home::Home');
 $routes->match(['get', 'post'], 'user/edit/(:num)', 'UserController::edit/$1');
 $routes->get('user/create', 'UserController::create');
 $routes->post('user/store', 'UserController::store');
 $routes->match(['get', 'post'], 'user/delete/(:num)', 'UserController::delete/$1');
-$routes->get('user', 'UserController::index');
-$routes->get('Admin/Treatment', 'Treatment::index');
-$routes->get('Admin/Reservasi', 'Reservasi::index');
+$routes->get('Admin/User', 'UserController::index');
 $routes->post('user/update/(:num)', 'UserController::update/$1');
 
 // CRUD TREATMENT
+$routes->get('Admin/Treatment', 'Treatment::index');
 $routes->get('adminTreatment/create', 'Treatment::create');
 $routes->post('adminTreatment/simpan', 'Treatment::simpan');
-// Export File Excel
-$routes->get('Admin/exportTreatment', 'Treatment::export');
-$routes->get('Admin/laporan_pdf', 'Treatment::pdf');
+$routes->get('treatment/delete/(:num)', 'Treatment::hapus/$1');
+$routes->get('treatment/edit/(:num)', 'Treatment::edit/$1');
+$routes->post('treatment/update/(:num)', 'Treatment::update/$1');
+
+// CRUD RESERVASI
+$routes->get('Admin/Reservasi', 'Reservasi::index');
+$routes->get('Admin/Reservasi/edit/(:num)', 'Reservasi::edit/$1');
+$routes->get('Admin/Reservasi/batal/(:num)', 'Reservasi::batal/$1');
+$routes->post('Admin/Reservasi/update/(:num)', 'Reservasi::update/$1');
+
+// Notifikasi
+$routes->get('Admin/Notifikasi/(:num)', 'Home::notifikasi/$1');
+
+// Export File Pdf
+$routes->get('Admin/User/laporan-pdf', 'UserController::export');
+$routes->get('Admin/Treatment/laporan-pdf', 'Treatment::export');
+$routes->post('Admin/Laporan/export', 'Home::export');
+$routes->post('Admin/Laporan/tampilkan', 'Home::tampilkan');
+
 
 // Panggil Ajax Tanggal
 $routes->get('/Reservasi/RFacialGold', 'Tanggal::index');
 $routes->get('/', 'Tanggal::index');
 $routes->post('Tanggal/getDataByDate', 'Tanggal::getDataByDate');
+$routes->post('Tanggal/getDataByFilter', 'Reservasi::Tampilkan');
 
+// OTP
+$routes->get('/layout/otp', 'Login::tampilOTP');
+$routes->post('/otp/kirim','Login::otp');
+
+// Lupa password
+$routes->get('/layout/lupaPW', 'Login::lupaPW');
+$routes->post('/lupaPW/kirim','Login::lupaPW');
 
 // $routes->get('/', 'User::index');
 // $routes->get('create', 'User::create');

@@ -58,7 +58,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="flex flex-col p-5 bg-white shadow-lg relative max-w-[592px]">
                     <h5 class=" text-sm md:text-base text-gray-600 mb-2">Perawatan terpilih</h5>
                     <div class="container">
@@ -150,6 +150,7 @@
             </div>
         </div>
     </div><br>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>

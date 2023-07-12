@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<?= base_url() ?>/template/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>/template/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="<?= base_url() ?>/template/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/template/js/select.dataTables.min.css">
@@ -23,16 +25,17 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="<?= base_url() ?>/template/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>/fontawesome/css/all.min.css">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> -->
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- <link rel="stylesheet" href="dist/css/adminlte.min.css"> -->
     <link rel="shortcut icon" href="{{ asset ('admin/images/favicon.png') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.1/select2.min.css" rel="stylesheet" />
     <style>
         .dataTables_wrapper .dataTables_paginate .paginate_button {
             padding: 0px !important;
@@ -59,19 +62,31 @@
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                     <span class="icon-menu"></span>
                 </button>
-               
-                <ul class="navbar-nav navbar-nav-right">
 
-                    <li class="nav-item nav-profile dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src="/img/profil.jpg" alt="profile" />
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="notifDropdown" href="#" data-toggle="dropdown">
+                            <i class="icon-bell mx-0"></i>
+                            <?php if (count($notifikasi) > 0) { ?>
+                                <span class="count"></span>
+                            <?php } ?>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="/layout/login">
-                                <i class="ti-power-off text-primary"></i>
-                                Logout
-                            </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notifDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Pemberitahuan</p>
+                            <?php foreach ($notifikasi as $notif) { ?>
+                                <a class="dropdown-item preview-item bg-info text-white" href="<?= base_url('Admin/Notifikasi') . '/' . $notif->id_notifikasi ?>">
+                                    <p class="font-weight-light mb-0">
+                                        <span class="font-weight-bold"><?= $notif->nama_lengkap ?></span> telah melakukan reservasi <span class="font-weight-bold"><?= $notif->nama_treatment ?></span>
+                                    </p>
+                                </a>
+                            <?php } ?>
                         </div>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="dropdown-item" href="<?= base_url('logout') ?>">
+                            <i class="ti-power-off text-primary"></i>
+                            Logout
+                        </a>
                     </li>
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -82,11 +97,31 @@
         <?= $this->include('Admin/Sidebar') ?>
         <?= $this->renderSection('content') ?>
     </div>
+    <!-- partial:../../partials/_footer.html -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-center">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 Adiva Beauty Skin | All rights reserved.</span>
+        </div>
+    </footer>
     </div>
     <!-- END LEFT SIDEBAR -->
     <!-- MAIN -->
     <!-- container-scroller -->
 
+    <!-- End custom js for this page-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.1/select2.min.js" defer></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#tablesiswa').DataTable();
+        });
+    </script>
 
     <!-- plugins:js -->
     <script src="<?= base_url() ?>/template/vendors/js/vendor.bundle.base.js"></script>
@@ -108,19 +143,9 @@
     <!-- Custom js for this page-->
     <script src="<?= base_url() ?>/template/js/dashboard.js"></script>
     <script src="<?= base_url() ?>/template/js/Chart.roundedBarCharts.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- End custom js for this page-->
-    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#tablesiswa').DataTable();
-        });
-    </script>
+
+    <?= $this->renderSection('script') ?>
 </body>
 
 </html>

@@ -2,95 +2,113 @@
 
 namespace App\Controllers;
 
+use App\Models\ReservasiModel;
+use App\Models\TreatmentModel;
+use App\Models\ModelUser;
+use App\Models\NotifikasiModel;
+use Dompdf\Dompdf;
+
 class Home extends BaseController
 {
+    protected $reservasiModel, $treatmentModel, $userModel, $jenisTreatment;
+    public function __construct()
+    {
+        $this->reservasiModel = new ReservasiModel();
+        $this->treatmentModel = new TreatmentModel();
+        $this->userModel      = new ModelUser();
+        $this->notifikasiModel = new NotifikasiModel();
+        $this->jenisTreatment = $this->treatmentModel->getJenisTreatment();
+    }
+
     public function index()
     {
-        echo view('layout/header');
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
         echo view('Beranda');
         echo view('layout/footer');
     }
 
-    public function klinik()
+    public function profile()
     {
-        echo view('layout/header');
-        echo view('home/klinik');
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        $data['user'] = $this->userModel->getUserById(session()->user_id);
+        echo view('layout/header', $dataHeader);
+        echo view('home/user', $data);
         echo view('layout/footer');
     }
 
-    public function treatment()
+    public function profileSimpan()
     {
-        echo view('layout/header');
-        echo view('home/treatment');
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        $data['user'] = $this->userModel->getUserById(session()->user_id);
+        $data['user']['nama'] = $this->request->getPost('nama');
+        $data['user']['email'] = $this->request->getPost('email');
+        $data['user']['no_hp'] = $this->request->getPost('no_hp');
+        $data['user']['alamat'] = $this->request->getPost('alamat');
+        $data['user']['tgl_lahir'] = $this->request->getPost('tgl_lahir');
+        $data['user']['jenis_kelamin'] = $this->request->getPost('jenis_kelamin');
+        $data['user']['password'] = $this->request->getPost('password');
+        $data['user']['foto'] = $this->request->getPost('foto');
+        $this->userModel->save($data['user']);
+        return redirect()->to('/home/user/profile');
+    }
+
+    public function klinik()
+    {
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
+        echo view('home/klinik');
         echo view('layout/footer');
     }
 
     public function BeforeAfter()
     {
-        echo view('layout/header');
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
         echo view('home/BeforeAfter');
         echo view('layout/footer');
     }
 
     public function Riwayat()
     {
-        echo view('layout/header');
-        echo view('home/Riwayat');
+        $data['reservasi'] = $this->reservasiModel->getReservasi(session()->user_id);
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
+        echo view('home/Riwayat', $data);
         echo view('layout/footer');
     }
 
-    public function Facial()
+    public function Treatment($jenis)
     {
-        echo view('layout/header');
-        echo view('Treatment/Facial');
+        $data['treatments'] = $this->treatmentModel->getTreatment($jenis);
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
+        echo view('home/Treatment', $data);
         echo view('layout/footer');
     }
 
-    public function Chemical()
+    public function Detail($treatment)
     {
-        echo view('layout/header');
-        echo view('Treatment/Chemical');
+        $data['detail'] = $this->treatmentModel->getDetail($treatment);
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
+        echo view('home/Detail', $data);
         echo view('layout/footer');
     }
 
-    public function Laser()
+    public function Reservasi($treatment)
     {
-        echo view('layout/header');
-        echo view('Treatment/Laser');
-        echo view('layout/footer');
-    }
-
-    public function Glowing()
-    {
-        echo view('layout/header');
-        echo view('Treatment/Glowing');
-        echo view('layout/footer');
-    }
-
-    public function Badan()
-    {
-        echo view('layout/header');
-        echo view('Treatment/Badan');
-        echo view('layout/footer');
-    }
-
-    public function Rambut()
-    {
-        echo view('layout/header');
-        echo view('Treatment/Rambut');
-        echo view('layout/footer');
-    }
-
-    public function Lainnya()
-    {
-        echo view('layout/header');
-        echo view('Treatment/Lainnya');
+        $data['detail'] = $this->treatmentModel->getDetail($treatment);
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
+        echo view('home/Reservasi', $data);
         echo view('layout/footer');
     }
 
     public function Login()
     {
-        echo view('layout/header');
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
         echo view('layout/login');
         echo view('layout/footer');
     }
@@ -104,329 +122,28 @@ class Home extends BaseController
 
     public function Register()
     {
-        echo view('layout/header');
+        $dataHeader['jenis_treatment'] = $this->jenisTreatment;
+        echo view('layout/header', $dataHeader);
         echo view('layout/register');
-        echo view('layout/footer');
-    }
-
-    public function ChemicalPeeling()
-    {
-        echo view('layout/header');
-        echo view('Detail/ChemicalPeeling');
-        echo view('layout/footer');
-    }
-
-    public function DChemicalPeeling()
-    {
-        echo view('layout/header');
-        echo view('Detail/DChemicalPeeling');
-        echo view('layout/footer');
-    }
-
-    public function CPKetiak()
-    {
-        echo view('layout/header');
-        echo view('Detail/CPKetiak');
-        echo view('layout/footer');
-    }
-
-    public function CPBibir()
-    {
-        echo view('layout/header');
-        echo view('Detail/CPBibir');
-        echo view('layout/footer');
-    }
-
-    public function CPLeher()
-    {
-        echo view('layout/header');
-        echo view('Detail/CPLeher');
-        echo view('layout/footer');
-    }
-
-    public function FacialBasic()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialBasic');
-        echo view('layout/footer');
-    }
-
-    public function FacialAntiAcne()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialAntiAcne');
-        echo view('layout/footer');
-    }
-
-    public function FacialGold()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialGold');
-        echo view('layout/footer');
-    }
-
-    public function FacialOksigen()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialOksigen');
-        echo view('layout/footer');
-    }
-
-    public function FacialDetox()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialDetox');
-        echo view('layout/footer');
-    }
-
-    public function FacialReguler()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialReguler');
-        echo view('layout/footer');
-    }
-
-    public function FacialIntensif()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialIntensif');
-        echo view('layout/footer');
-    }
-
-    public function FacialSkin()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialSkin');
-        echo view('layout/footer');
-    }
-
-    public function FacialScrubber()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialScrubber');
-        echo view('layout/footer');
-    }
-
-    public function FacialIceGlobe()
-    {
-        echo view('layout/header');
-        echo view('Detail/FacialIceGlobe');
-        echo view('layout/footer');
-    }
-
-    public function LaserBibir()
-    {
-        echo view('layout/header');
-        echo view('Detail/LaserBibir');
-        echo view('layout/footer');
-    }
-
-    public function LaserBDKetiak()
-    {
-        echo view('layout/header');
-        echo view('Detail/LaserBDKetiak');
-        echo view('layout/footer');
-    }
-
-    public function LaserWajah()
-    {
-        echo view('layout/header');
-        echo view('Detail/LaserWajah');
-        echo view('layout/footer');
-    }
-
-    public function GlowingKulitWajah()
-    {
-        echo view('layout/header');
-        echo view('Detail/GlowingKulitWajah');
-        echo view('layout/footer');
-    }
-
-    public function GlowingKulitKetiak()
-    {
-        echo view('layout/header');
-        echo view('Detail/GlowingKulitKetiak');
-        echo view('layout/footer');
-    }
-
-    public function GlowingKulitLeher()
-    {
-        echo view('layout/header');
-        echo view('Detail/GlowingKulitLeher');
-        echo view('layout/footer');
-    }
-
-    public function GlowingKulitBibir()
-    {
-        echo view('layout/header');
-        echo view('Detail/GlowingKulitBibir');
-        echo view('layout/footer');
-    }
-
-    public function PaketInjeksiVitC()
-    {
-        echo view('layout/header');
-        echo view('Detail/PaketInjeksiVitC');
-        echo view('layout/footer');
-    }
-
-    public function PaketInjeksiWhitening()
-    {
-        echo view('layout/header');
-        echo view('Detail/PaketInjeksiWhitening');
-        echo view('layout/footer');
-    }
-
-    public function InjeksiWhitening()
-    {
-        echo view('layout/header');
-        echo view('Detail/InjeksiWhitening');
-        echo view('layout/footer');
-    }
-
-    public function InjeksiVitC()
-    {
-        echo view('layout/header');
-        echo view('Detail/InjeksiVitC');
-        echo view('layout/footer');
-    }
-
-    public function HairSPA()
-    {
-        echo view('layout/header');
-        echo view('Detail/HairSPA');
-        echo view('layout/footer');
-    }
-
-    public function HairMask()
-    {
-        echo view('layout/header');
-        echo view('Detail/HairMask');
-        echo view('layout/footer');
-    }
-
-    public function HairCreambath()
-    {
-        echo view('layout/header');
-        echo view('Detail/HairCreambath');
-        echo view('layout/footer');
-    }
-
-    public function CuciVitRambut()
-    {
-        echo view('layout/header');
-        echo view('Detail/CuciVitRambut');
-        echo view('layout/footer');
-    }
-
-    public function RFacialBasic()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialBasic');
-        echo view('layout/footer');
-    }
-
-    public function RFacialAcne()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialAcne');
-        echo view('layout/footer');
-    }
-
-    public function RFacialDetox()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialDetox');
-        echo view('layout/footer');
-    }
-
-    public function RFacialGold()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialGold');
-        echo view('layout/footer');
-    }
-
-    public function RFacialReguler()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialReguler');
-        echo view('layout/footer');
-    }
-
-    public function RFacialOksigen()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialOksigen');
-        echo view('layout/footer');
-    }
-
-    public function RFacialIntensif()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialIntensif');
-        echo view('layout/footer');
-    }
-
-    public function RFacialIceGlobe()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialIceGlobe');
-        echo view('layout/footer');
-    }
-
-    public function RFacialSkin()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialSkin');
-        echo view('layout/footer');
-    }
-
-    public function RFacialScrubber()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RFacialScrubber');
-        echo view('layout/footer');
-    }
-
-    public function RChemicalPeeling()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RChemicalPeeling');
-        echo view('layout/footer');
-    }
-
-    public function RDChemicalPeeling()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RDChemicalPeeling');
-        echo view('layout/footer');
-    }
-
-    public function RCPKetiak()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RCPKetiak');
-        echo view('layout/footer');
-    }
-
-    public function RCPLeher()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RCPLeher');
-        echo view('layout/footer');
-    }
-
-    public function RCPBibir()
-    {
-        echo view('layout/header');
-        echo view('Reservasi/RCPBibir');
         echo view('layout/footer');
     }
 
     public function Home()
     {
-        echo view('Admin/Home');
+        $isAdmin = $this->checkLogin();
+        if(!$isAdmin) { return redirect()->to(base_url('layout/login')); }
+
+        $data['totalUser'] = $this->userModel->totalUser();
+        $data['totalReservasi'] = $this->reservasiModel->totalReservasi();
+        $data['totalTreatment'] = $this->treatmentModel->totalTreatment();
+        $data['notifikasi'] = $this->notifikasiModel->getData();
+        echo view('Admin/Home', $data);
+    }
+
+    public function notifikasi($id)
+    {
+        $notif = $this->notifikasiModel->getDataById($id);
+        return redirect()->to('/Admin/Reservasi/edit/' . $notif['id_reservasi']);
     }
 
     public function Dasboard()
@@ -436,11 +153,125 @@ class Home extends BaseController
 
     public function Laporan()
     {
-        echo view('Admin/Laporan');
+        $isAdmin = $this->checkLogin();
+        if(!$isAdmin) { return redirect()->to(base_url('layout/login')); }
+        
+        $data['notifikasi'] = $this->notifikasiModel->getData();
+        $data['treatment'] = $this->treatmentModel->getdata();
+        echo view('Admin/Laporan', $data);
     }
 
     public function DAdmin()
     {
         echo view('Admin/DAdmin');
+    }
+
+    public function simpan()
+    {
+        $data = [
+            'tgl_reservasi' => $this->request->getPost('tanggal'),
+            'sesi_reservasi' => $this->request->getPost('jam'),
+            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+            'alamat' => $this->request->getPost('alamat'),
+            'nomor_telepon' => $this->request->getPost('nomor_telepon'),
+            'nama_treatment' => $this->request->getPost('nama_treatment'),
+            'total' => $this->request->getPost('total'),
+            'status_reservasi' => 'Dalam Proses',
+            'user_id' => $this->request->getPost('user_id'),
+        ];
+        // remove Rp. and .
+        $data['total'] = str_replace(['Rp. ', '.'], '', $data['total']);
+        $data['total'] = trim($data['total']);
+        $reservasi = $this->reservasiModel->insertData($data);
+
+        // simpan notifikasi dengan parameter id reservasi
+        $this->notifikasiModel->simpan($reservasi);
+
+        $redirect = '/home/Riwayat';
+        return redirect()->to($redirect);
+    }
+
+    public function cekSesi()
+    {
+        $tanggal = $this->request->getVar('tanggal');
+        $treatment = $this->request->getVar('treatment');
+
+        $id = session()->user_id;
+        $check = $this->reservasiModel->cekReservasi($id, $tanggal, $treatment);
+
+        if($check) {
+            return json_encode($check);
+        } else {
+            $sesi = $this->reservasiModel->cekSesi($treatment, $tanggal);
+            return json_encode($sesi);
+        }
+    }
+
+    public function export()
+    {
+        $tanggalAwal = $this->request->getPost('tanggal_awal');
+        $tanggalAkhir = $this->request->getPost('tanggal_akhir');
+        $filterBy = $this->request->getPost('filter');
+        $data = [];
+        $reservasi = [];
+        $namaTreatment = '';
+        if($filterBy == 'treatment') {
+            $namaTreatment = $this->request->getPost('nama_treatment');
+            $reservasi = $this->reservasiModel->getTreatment($namaTreatment);
+            $data['treatment'] = $namaTreatment;
+            $data['periode'] = ' - ';
+        } else if($filterBy == 'tanggal') {
+            $reservasi = $this->reservasiModel->getDataRange($tanggalAwal, $tanggalAkhir);
+            // change format from yyyy-mm-dd to dd-mm-yyyy
+            $tanggalAwal = date('d F Y', strtotime($tanggalAwal));
+            $tanggalAkhir = date('d F Y', strtotime($tanggalAkhir));
+            $data['treatment'] = 'Semua Treatment';
+            $data['periode'] = $tanggalAwal . ' - ' . $tanggalAkhir;
+        }
+
+        $data['dataReservasi'] = $reservasi;
+
+        // filename
+        $filename = 'reservasi_' . date('YmdHis') . '.pdf';
+        
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+
+        // load HTML content
+        $dompdf->loadHtml(view('Admin/laporan_pdf', $data));
+
+        // (optional) setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // render html as PDF
+        $dompdf->render();
+
+        // output the generated pdf
+        $dompdf->stream($filename);
+    }
+
+    public function tampilkan()
+    {
+        $tanggalAwal = $this->request->getPost('tanggal_awal');
+        $tanggalAkhir = $this->request->getPost('tanggal_akhir');
+        $filterBy = $this->request->getPost('filter');
+        $data = [];
+        $reservasi = [];
+        $namaTreatment = '';
+        if($filterBy == 'treatment') {
+            $namaTreatment = $this->request->getPost('nama_treatment');
+            $reservasi = $this->reservasiModel->getTreatment($namaTreatment);
+            $data['treatment'] = $namaTreatment;
+            $data['periode'] = ' - ';
+        } else if($filterBy == 'tanggal') {
+            $reservasi = $this->reservasiModel->getDataRange($tanggalAwal, $tanggalAkhir);
+            // change format from yyyy-mm-dd to dd-mm-yyyy
+            $tanggalAwal = date('d F Y', strtotime($tanggalAwal));
+            $tanggalAkhir = date('d F Y', strtotime($tanggalAkhir));
+            $data['treatment'] = 'Semua Treatment';
+            $data['periode'] = $tanggalAwal . ' - ' . $tanggalAkhir;
+        }
+
+        $data['dataReservasi'] = $reservasi;
     }
 }

@@ -12,41 +12,41 @@
     <img src="/img/Klinik.jpg" class="img-fluid" alt="...">
     <!-- tentang klinik -->
     <div class="container">
-            <div class="card-body">
-                <h3 class="card-title text-center">Klinik Adiva Beauty Skin</h3>
-                <hr style="border-color: black;">
-                <p class="card-text text-center">Klinik Adiva Beauty Skin merupakan sebuah klinik kecantikan yang ada di Maospati yang didirikan oleh Dokter Puji Hastuti pada tahun 2009 dan menyediakan berbagai treatment yang ditangani oleh Dokter dan terapis yang sudah berpengalaman. Alamat klinik ini yaitu, Green Pusaka Residence Blok A8, Jl. Rajawali, Kecamatan Maospati, Kabupaten Magetan, Jawa Timur.</p>
-                <br>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6 mb-4">
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <h3>Visi</h3>
-                                </div>
-                                <div class="card-body">
-                                    <p>Menjadi Klinik di bidang Kulit dan Estetika yang Kompetitif, Inovatif,
-                                        Berkualitas, Terdepan, dan Terpercaya.</p>
-                                </div>
+        <div class="card-body">
+            <h3 class="card-title text-center">Klinik Adiva Beauty Skin</h3>
+            <hr style="border-color: black;">
+            <p class="card-text text-center">Klinik Adiva Beauty Skin merupakan sebuah klinik kecantikan yang ada di Maospati yang didirikan oleh Dokter Puji Hastuti pada tahun 2009 dan menyediakan berbagai treatment yang ditangani oleh Dokter dan terapis yang sudah berpengalaman. Alamat klinik ini yaitu, Green Pusaka Residence Blok A8, Jl. Rajawali, Kecamatan Maospati, Kabupaten Magetan, Jawa Timur.</p>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <h3>Visi</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Menjadi Klinik di bidang Kulit dan Estetika yang Kompetitif, Inovatif,
+                                    Berkualitas, Terdepan, dan Terpercaya.</p>
                             </div>
                         </div>
-                        <div class="col-6 mb-4">
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <h3>Misi</h3>
-                                </div>
-                                <div class="card-body">
-                                    <ul>
-                                        <li style="text-align:justify">Metode perawatan yang menggunakan teknologi terkini</li>
-                                        <li style="text-align:justify">Staf yang kompeten dan menjunjung standar pelayanan yang tinggi</li>
-                                        <li style="text-align:justify">Kenyamanan pelanggan dengan mengutamakan keamanan dan komitmen untuk memberi pelayanan yang terbaik</li>
-                                    </ul>
-                                </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <h3>Misi</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li style="text-align:justify">Metode perawatan yang menggunakan teknologi terkini</li>
+                                    <li style="text-align:justify">Staf yang kompeten dan menjunjung standar pelayanan yang tinggi</li>
+                                    <li style="text-align:justify">Kenyamanan pelanggan dengan mengutamakan keamanan dan komitmen untuk memberi pelayanan yang terbaik</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
     <div class="container">
         <h2 class="text-center my-4">Room of Klinik</h2>
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 </body>
 
 </html>

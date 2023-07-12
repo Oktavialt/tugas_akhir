@@ -18,17 +18,17 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="/img/Slider1.jpg" class="d-block w-90 mx-auto" alt="...">
+                <img src="/img/Slider1.jpg" class="d-block w-100 mx-auto" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/img/Slider2.jpg" class="d-block w-90 mx-auto" alt="...">
+                <img src="/img/Slider2.jpg" class="d-block w-100 mx-auto" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="/img/Slider3.jpg" class="d-block w-90 mx-auto" alt="...">
+                <img src="/img/Slider3.jpg" class="d-block w-100 mx-auto" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                 </div>
             </div>
@@ -62,8 +62,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                <img src="/img/ruangDepan.jpeg" class="img-thumbnail" alt="...">
+                <div class="col-md-4 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                    <img src="/img/ruangDepan.jpeg" class="img-thumbnail" alt="...">
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <hr style="border-color: black;">
         <br>
         <div class="row">
-            <div class="col-4 mb-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card text-center">
                     <div class="card-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="col-4 mb-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card text-center">
                     <div class="card-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16">
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card text-center">
                     <div class="card-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
@@ -119,7 +119,7 @@
                 </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card text-center">
                     <div class="card-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <br>
-            <div class="col-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card text-center">
                     <div class="card-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
@@ -151,7 +151,7 @@
                 </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-lg-4 mb-4">
                 <div class="card text-center">
                     <div class="card-header">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
@@ -193,6 +193,7 @@
         </div>
     </div> -->
     <br>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 </body>
 
 </html>

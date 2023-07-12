@@ -10,49 +10,39 @@
 
 <body>
     <img src="/img/riwayat.png" class="img-fluid" alt="...">
-    
+    <div class="md:container md:mx-auto px-4 text-center mt-5 mb-5">
+        <h2 class="text-head text-14px md:text-l md:text-center font-bold">Lihat Dan Cek Status Reservasi Anda Di Sini</h2>
+        <p class="text-desc text-sm md:text-18px md:text-center mt-2">Jangan lupa #BAYAR setelah melakukan treatment!</p>
+    </div>
+    <div class="table-responsive mb-5">
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Username</th>
                     <th scope="col">Treatment</th>
-                    <th scope="col">Tanggal</th>
-                    <th scope="col">Sesi</th>
-                    <th scope="col">Yang harus dibayar</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Tanggal Treatment</th>
+                    <th scope="col">Sesi Treatment</th>
+                    <th scope="col">Total Tagihan</th>
+                    <th scope="col">Status Reservasi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Oktavia</td>
-                    <td>Facial Anti Acne</td>
-                    <td>08/06/2023</td>
-                    <td>10.00 - 12.00 WIB</td>
-                    <td>Rp. 55.000</td>
-                    <td>LUNAS</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Oktavia</td>
-                    <td>Chemical Peeling</td>
-                    <td>08/07/2023</td>
-                    <td>10.00 - 12.00 WIB</td>
-                    <td>Rp. 150.000</td>
-                    <td>PROSES</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Oktavia</td>
-                    <td>Facial Anti Acne</td>
-                    <td>08/07/2023</td>
-                    <td>10.00 - 12.00 WIB</td>
-                    <td>Rp. 55.000</td>
-                    <td>DIBATALKAN</td>
-                </tr>
+                <?php foreach($reservasi as $key => $res) { ?>
+                    <tr>
+                        <th scope="row"><?= ++$key ?></th>
+                        <td><?= $res->username ?></td>
+                        <td><?= $res->nama_treatment ?></td>
+                        <td><?= $res->tgl_reservasi ?></td>
+                        <td><?= $res->sesi_reservasi ?></td>
+                        <td>Rp. <?= number_format($res->total, 0, '', '.') ?></td>
+                        <td><?= $res->status_reservasi ?></td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
-    
+    </div>
+    <br>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 </body>
 </html>

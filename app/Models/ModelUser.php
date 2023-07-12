@@ -11,11 +11,14 @@ class ModelUser extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $protectFields = true;
-    protected $allowedFields = ['nama_lengkap', 'username', 'alamat', 'no_telepon', 'level_user'];
+    protected $allowedFields = ['nama_lengkap','aktif', 'username', 'alamat', 'nomor_telepon', 'password', 'level_user', 'otp'];
 
     public function login($username, $password)
     {
         return $this->where(['username' => $username, 'password' => $password])->first();
+    }
+    public function otp($username, $otp){
+        return $this->where(['username' => $username, 'otp' => $otp])->first();
     }
     // Fungsi untuk mendapatkan seluruh data user
     public function getUsers()
@@ -45,5 +48,11 @@ class ModelUser extends Model
     public function deleteUser($id)
     {
         $this->delete($id);
+    }
+
+    public function totalUser()
+    {
+        $query = $this->db->query("SELECT * FROM user WHERE level_user = 'Pelanggan'");
+        return $query->getNumRows();
     }
 }

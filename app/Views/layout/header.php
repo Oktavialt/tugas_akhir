@@ -52,16 +52,15 @@
                             Treatment
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/Treatment/Facial">Facial</a></li>
-                            <li><a class="dropdown-item" href="/Treatment/Chemical">Chemical Peeling</a></li>
-                            <li><a class="dropdown-item" href="/Treatment/Laser">Laser</a></li>
-                            <li><a class="dropdown-item" href="/Treatment/Glowing">Glowing Glass Skin</a></li>
-                            <li><a class="dropdown-item" href="/Treatment/Badan">Body Treatment</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/Treatment/Rambut">Hair Treatment</a></li>
-                            <li><a class="dropdown-item" href="/Treatment/Lainnya">Other Treatment</a></li>
+                            <?php
+                            if (isset($jenis_treatment)) {
+                                foreach ($jenis_treatment as $row) {
+                                    // replace space with dash (-)
+                                    $url = str_replace(' ', '-', $row);
+                                    echo '<li><a class="dropdown-item" href="/home/Treatment/' . $url . '">' . $row . '</a></li>';
+                                }
+                            }
+                            ?>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -75,7 +74,7 @@
                 </ul>
 
                 <div class="d-flex" role="login">
-                    <?php if (!empty(session()->logged_in)) { ?>
+                    <?php if (!empty(session()->logged_in) && session()->get('level_user') == 'Pelanggan') { ?>
                         <!-- <div class="alert alert-warning mr-2 align-items-center" role="alert">
                             <div class="alert-body d-flex align-items-center height-3">
                                 <i data-feather="info" class="me-20"></i>
@@ -85,9 +84,9 @@
                         <br>
                         <!-- Button trigger modal -->
                         <div class="d-grid gap-2 d-md-block">
-                        <button type="button" class="btn btn-outline-dark" disabled>
+                            <a href="/home/user/profile" class="btn btn-outline-dark" disabled>
                                 <span><?= session()->get('pesan') ?></span>
-                            </button>
+                            </a>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Logout
                             </button>
