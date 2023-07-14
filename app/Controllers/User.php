@@ -25,13 +25,13 @@ class User extends Controller
 
         $rules = [
             'nama_lengkap' => 'required',
-            'username' => 'required|min_length[5]|max_length[20]',
+            'username' => 'required|min_length[5]|max_length[20]|is_unique[user.username]',
             'alamat' => 'required',
-            'nomor_telepon' => 'required|numeric',
+            'nomor_telepon' => 'required|numeric|is_unique[user.nomor_telepon]',
             'leveluser' => 'required'
         ];
 
-        if($this->validate($rules)){
+        if ($this->validate($rules)) {
             $model = new UserModel();
             $data = [
                 'nama_lengkap' => $this->request->getVar('nama_lengkap'),
@@ -61,13 +61,13 @@ class User extends Controller
 
         $rules = [
             'nama_lengkap' => 'required',
-            'username' => 'required|min_length[5]|max_length[20]',
+            'username' => 'required|min_length[5]|max_length[20]|is_unique[user.username]',
             'alamat' => 'required',
-            'no_telepon' => 'required|numeric',
+            'no_telepon' => 'required|numeric|is_unique[user.no_telepon]',
             'leveluser' => 'required'
         ];
 
-        if($this->validate($rules)){
+        if ($this->validate($rules)) {
             $model = new UserModel();
             $id = $this->request->getVar('id');
             $data = [

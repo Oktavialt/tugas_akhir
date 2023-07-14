@@ -55,7 +55,7 @@
                                     <input class="form-control" type="text" placeholder="<?= session()->get('username') ?>" value="<?= session()->get('username') ?>" name="username" aria-label="input example">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                                    <label for="exampleFormControlInput1" class="form-label">Password Baru</label>
                                     <div style="margin-top:-10px">
                                         <span class="password-text">Kosongkan jika tidak ingin merubah</span>
                                     </div>

@@ -49,7 +49,7 @@ class Login extends BaseController
                     } else {
                         if ($user['aktif'] == 0) {
                             # code...
-                            session()->setFlashdata('pesan', 'Maaf, nomor telepon anda belum TERVERIFIKASI.');
+                            session()->setFlashdata('pesan', 'Maaf, akun anda belum TERVERIFIKASI.');
                             return redirect()->to(base_url('layout/login'));
                         } else {
 
@@ -129,7 +129,7 @@ class Login extends BaseController
         return view('layout/otp', $data);
     }
 
-    Public function lupaPW()
+    public function lupaPW()
     {
         $data = [
             'title' => 'Login',
@@ -141,5 +141,27 @@ class Login extends BaseController
 
     public function otp()
     {
+        if ($this->request->getMethod() == 'post') {
+
+            $username = htmlspecialchars($this->request->getVar('username'));
+            $otp = htmlspecialchars($this->request->getVar('otp'));
+
+            $user = $this->ModelUser->otp($username, $otp);
+            if ($user) {
+
+
+                $model = new ModelUser();
+
+                $model->updateUser($user['user_id'], [
+                    'aktif' => 1,
+                ]);
+
+                session()->setFlashdata('pesan', 'Selamat, akun anda sudah TERVERIFIKASI!');
+                return redirect()->to(base_url('layout/login'));
+            } else {
+                session()->setFlashdata('pesan', 'Kode OTP Salah!');
+                return redirect()->to(base_url('/layout/otp'));
+            }
+        }
     }
 }

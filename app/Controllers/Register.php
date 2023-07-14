@@ -11,12 +11,13 @@ class Register extends Controller
 {
 	protected  $sendMessageModel;
 
-    public function __construct(){
-        // $this->reservasiModel = new ReservasiModel();
-        $this->sendMessageModel = new SendMessageModel();
-        // $this->userModel = new UserModel();
-        // $this->notifikasiModel = new NotifikasiModel();
-    }   
+	public function __construct()
+	{
+		// $this->reservasiModel = new ReservasiModel();
+		$this->sendMessageModel = new SendMessageModel();
+		// $this->userModel = new UserModel();
+		// $this->notifikasiModel = new NotifikasiModel();
+	}
 
 	public function index()
 	{
@@ -46,7 +47,7 @@ class Register extends Controller
 			$level_user	= htmlspecialchars($this->request->getPost('level_user'));
 			// $otp	= htmlspecialchars($this->request->getPost('otp'));
 			// input data register ke dalam database user
-			$otp = random_int(10000,99999);
+			$otp = random_int(10000, 99999);
 			$this->modelUser->insert([
 				'nama_lengkap' 	=> $nama_lengkap,
 				'username' 	=> $username,
@@ -57,8 +58,8 @@ class Register extends Controller
 				'otp' => $otp,
 			]);
 
-			$message = ' Kode otp anda adalah '.$otp .'Masukkan kode ini untuk mengaktifkan akun anda.Jangan bagikan kode ini kepada siapapun!';
-			
+			$message = ' Kode otp anda adalah ' . $otp . 'Masukkan kode ini untuk mengaktifkan akun anda.Jangan bagikan kode ini kepada siapapun!';
+
 			$send = $this->sendMessageModel->kirimPesan($nomor_telepon, $message);
 			$send = json_decode($send);
 			session()->setFlashdata('pesan', 'Selamat Anda Berhasil Registrasi');
@@ -68,5 +69,4 @@ class Register extends Controller
 			echo view('register', $data);
 		}
 	}
-	
 }

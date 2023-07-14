@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>OTP Form</title>
+    <title>Validasi Password</title>
 </head>
+
 <body>
-    
     <h1>OTP Form</h1>
     <form action="<?php echo base_url('otp/kirim'); ?>" method="post">
         <input type="text" name="username" placeholder="Masukkan Username" required>
@@ -12,4 +13,6 @@
         <button type="submit">Send OTP</button>
     </form>
 </body>
+
+
 </html>

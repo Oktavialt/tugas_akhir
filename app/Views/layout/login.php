@@ -79,9 +79,9 @@
 
               <!-- ubah password -->
               
-              <!-- <div class="text-center">
+              <div class="text-center">
                 <p>Lupa Password? <a href="/layout/lupaPW">Ubah Password</a></p>
-              </div> -->
+              </div>
 
               <!-- Register buttons -->
               <div class="text-center">
